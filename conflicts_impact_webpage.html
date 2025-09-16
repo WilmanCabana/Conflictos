@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflictos que Transformaron la Historia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 3.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .conflict-section {
+            margin: 60px 0;
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out forwards;
+            position: relative;
+        }
+        
+        .conflict-section:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+        
+        .conflict-section:nth-child(even) {
+            animation-delay: 0.4s;
+        }
+        
+        .conflict-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .conflict-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .conflict-card:hover::before {
+            left: 100%;
+        }
+        
+        .conflict-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .conflict-title {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .iraq-title { color: #ff6b6b; }
+        .coldwar-title { color: #4ecdc4; }
+        .balkans-title { color: #45b7d1; }
+        
+        .conflict-period {
+            font-size: 1.1em;
+            color: #888;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .impact-list {
+            list-style: none;
+        }
+        
+        .impact-item {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .iraq .impact-item { border-color: #ff6b6b; }
+        .coldwar .impact-item { border-color: #4ecdc4; }
+        .balkans .impact-item { border-color: #45b7d1; }
+        
+        .impact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .impact-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .impact-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .iraq .impact-icon { background: #ff6b6b; }
+        .coldwar .impact-icon { background: #4ecdc4; }
+        .balkans .impact-icon { background: #45b7d1; }
+        
+        .impact-description {
+            color: #cccccc;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+            top: -50px;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+            
+            .conflict-card {
+                padding: 25px;
+                margin: 20px 0;
+            }
+            
+            .conflict-title {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+    
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1 class="title">Conflictos que Transformaron la Historia</h1>
+            <p class="subtitle">Los eventos que redefinieron el orden mundial contemporáneo</p>
+        </header>
+        
+        <div class="conflict-section iraq">
+            <div class="timeline-connector"></div>
+            <div class="conflict-card">
+                <h2 class="conflict-title iraq-title">Guerra de Irak</h2>
+                <p class="conflict-period">2003-2011</p>
+                <ul class="impact-list">
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Inestabilidad del precio del petróleo
+                        </h3>
+                        <p class="impact-description">
+                            La guerra generó volatilidad extrema en los mercados energéticos globales, afectando economías dependientes del petróleo y disparando los costos de transporte y producción a nivel mundial, creando ondas de choque económicas que perduraron años después del conflicto.
+                        </p>
+                    </li>
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Surgimiento del Estado Islámico (ISIS)
+                        </h3>
+                        <p class="impact-description">
+                            El vacío de poder creado tras la intervención estableció las condiciones perfectas para el terrorismo internacional, amenazando la seguridad global y provocando ataques devastadores en Europa, Asia y América, redefiniendo las estrategias antiterroristas mundiales.
+                        </p>
+                    </li>
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Erosión del multilateralismo
+                        </h3>
+                        <p class="impact-description">
+                            La intervención unilateral debilitó significativamente la ONU y las organizaciones internacionales, demostrando que las grandes potencias podían actuar sin consenso global. Este precedente influyó en decisiones posteriores, como la invasión rusa de Ucrania.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="conflict-section coldwar">
+            <div class="timeline-connector"></div>
+            <div class="conflict-card">
+                <h2 class="conflict-title coldwar-title">Guerra Fría</h2>
+                <p class="conflict-period">1947-1991</p>
+                <ul class="impact-list">
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Carrera armamentística nuclear
+                        </h3>
+                        <p class="impact-description">
+                            La proliferación de armas nucleares mantiene al mundo bajo la doctrina de destrucción mutua asegurada, influyendo decisivamente en todas las relaciones internacionales actuales y convirtiéndose en justificación para nuevos conflictos armados.
+                        </p>
+                    </li>
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Aceleración tecnológica
+                        </h3>
+                        <p class="impact-description">
+                            La competencia espacial y militar impulsó innovaciones revolucionarias que transformaron la vida moderna: internet, GPS, computadoras y tecnologías satelitales que hoy consideramos esenciales para la sociedad global.
+                        </p>
+                    </li>
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Conflictos proxy globales
+                        </h3>
+                        <p class="impact-description">
+                            Desencadenó guerras y golpes militares en Asia, América Latina y Medio Oriente, donde cada superpotencia apoyaba bandos opuestos para extender su hegemonía. Incluye las guerras de Corea, Vietnam, Afganistán y el respaldo a dictaduras latinoamericanas.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="conflict-section balkans">
+            <div class="timeline-connector"></div>
+            <div class="conflict-card">
+                <h2 class="conflict-title balkans-title">Guerra de los Balcanes</h2>
+                <p class="conflict-period">1991-2001</p>
+                <ul class="impact-list">
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Redefinición de fronteras europeas
+                        </h3>
+                        <p class="impact-description">
+                            La desintegración de Yugoslavia redefinió completamente las fronteras europeas, creando nuevos estados soberanos como Eslovenia, Croacia, Bosnia y Herzegovina, y Macedonia del Norte. Los conflictos étnicos causaron millones de desplazados y decenas de miles de muertes.
+                        </p>
+                    </li>
+                    <li class="impact-item">
+                        <h3 class="impact-title">
+                            <div class="impact-icon"></div>
+                            Creación de la justicia penal internacional
+                        </h3>
+                        <p class="impact-description">
+                            Impulsó la creación del Tribunal Penal Internacional para la ex Yugoslavia en 1993, sentando precedentes cruciales para juzgar crímenes de guerra y genocidio. Su jurisprudencia influyó directamente en la posterior creación de la Corte Penal Internacional.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / documentHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.conflict-section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+            
+            parallax.forEach(element => {
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+        
+        // Add mouse follow effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.conflict-card');
+            
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                } else {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                }
+            });
+        });
+        
+        // Reset card transforms when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const cards = document.querySelectorAll('.conflict-card');
+            cards.forEach(card => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
